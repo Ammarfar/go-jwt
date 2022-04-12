@@ -3,7 +3,6 @@ package controllers
 import (
 	e "go-jwt/app/entities"
 	h "go-jwt/app/helpers"
-	m "go-jwt/app/middlewares"
 	r "go-jwt/app/repositories"
 
 	"fmt"
@@ -30,7 +29,7 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	token, err := m.GenerateToken(*user)
+	token, err := h.GenerateToken(*user)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, h.ResponseError(err.Error()))
 		return
