@@ -10,13 +10,13 @@ import (
 )
 
 func GetUserInfo(c *gin.Context) {
-	id, _, ok := h.GetSession(c)
+	id, ok := c.Get("id")
 	if !ok {
-		c.JSON(http.StatusInternalServerError, h.ResponseError("User not found"))
+		c.JSON(http.StatusInternalServerError, h.ResponseError("Session not found"))
 		return
 	}
 
-	user, err := r.FindUserByID(id)
+	user, err := r.FindUserByID(id.(uint))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, h.ResponseError("User not found"))
 		return
