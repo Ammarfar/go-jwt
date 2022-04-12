@@ -20,7 +20,7 @@ func InsertUser(username string, password string, email string) (*m.User, error)
 
 func FindUserByUsername(username string) (*m.User, error) {
 	var user m.User
-	if res := c.DB.Table("Users").Where("username = ?", username).First(&user); res.Error != nil {
+	if res := c.DB.Where("username = ?", username).First(&user); res.Error != nil {
 		return nil, res.Error
 	}
 
@@ -29,7 +29,7 @@ func FindUserByUsername(username string) (*m.User, error) {
 
 func FindUserByID(id uint) (*m.User, error) {
 	var user m.User
-	if res := c.DB.Table("Users").First(&user, id); res.Error != nil {
+	if res := c.DB.First(&user, id); res.Error != nil {
 		return nil, res.Error
 	}
 

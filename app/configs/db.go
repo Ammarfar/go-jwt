@@ -2,6 +2,7 @@ package configs
 
 import (
 	h "go-jwt/app/helpers"
+	m "go-jwt/app/models"
 
 	"fmt"
 
@@ -21,6 +22,8 @@ func ConnectDatabase() {
 
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Jakarta", dbHost, dbUser, dbPass, dbName, dbPort)
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+
+	db.AutoMigrate(&m.User{})
 
 	if err != nil {
 		panic("Failed to connect to database!")
