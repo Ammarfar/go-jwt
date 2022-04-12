@@ -12,12 +12,14 @@ func VerifyToken(c *gin.Context) {
 	token, ok := h.GetToken(c)
 	if !ok {
 		c.JSON(http.StatusUnauthorized, h.ResponseError("Invalid Token Format"))
+		c.Abort()
 		return
 	}
 
 	id, err := h.ValidateToken(token)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, h.ResponseError("Invalid Token"))
+		c.Abort()
 		return
 	}
 
