@@ -17,4 +17,8 @@ func Routes(app *gin.Engine) {
 	//Route List
 	Auth(app)
 	User(app)
+
+	app.NoRoute(func(c *gin.Context) {
+		c.JSON(http.StatusNotFound, h.ResponseError("not found"))
+	})
 }
